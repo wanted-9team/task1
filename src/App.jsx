@@ -1,23 +1,19 @@
 import React from 'react'
-import './App.css'
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom'
+import Auth from './pages/Auth'
+import Todo from './pages/Todo'
 
+import { getToken } from './utils/auth'
 function App() {
+  const accessToken = getToken()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={accessToken ? <Navigate to="/todo" replace /> : <Auth />} />
+        <Route path="/todo" element={!accessToken ? <Navigate to="/" replace /> : <Todo />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
