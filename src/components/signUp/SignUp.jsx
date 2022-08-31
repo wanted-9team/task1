@@ -24,6 +24,7 @@ function SignUp({ setIsLogin }) {
     signUp(data)
       .then(res => {
         if (res.status === 201) {
+
           setIsLogin(true)
         }
       })
