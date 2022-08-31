@@ -1,11 +1,8 @@
 import React, { useState, useMemo } from 'react'
 import { signUp } from '../../utils/auth'
-import { useNavigate } from 'react-router-dom'
 import * as S from '../../styles/Auth.style'
 
 function SignUp({ setIsLogin }) {
-  const navigate = useNavigate()
-
   const [userInfo, setUserInfo] = useState({ email: '', password: '' })
   const [passwordConfirm, setPasswordConfirm] = useState('')
 
@@ -27,7 +24,7 @@ function SignUp({ setIsLogin }) {
     signUp(data)
       .then(res => {
         if (res.status === 201) {
-          navigate('/')
+          setIsLogin(true)
         }
       })
       .catch(res => {
