@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffct, useMemo } from 'react'
+import React, { useCallback, useState, useEffect, useMemo } from 'react'
 import { setToken } from '../../utils/token'
 import { signIn } from '../../utils/auth'
 import * as S from '../../styles/Auth.style'
@@ -47,7 +47,7 @@ function SignIn({ setIsLogin }) {
       })
   }
 
-const onChangeEmail = ({ target }) => {
+  const onChangeEmail = ({ target }) => {
     setLoginUserInfo(prev => ({ ...prev, email: target.value }))
   }
 
