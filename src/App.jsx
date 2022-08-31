@@ -7,7 +7,7 @@ import GlobalStyle from './styles/global'
 function App() {
   return (
     <BrowserRouter>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Routes>
         <Route index element={<Auth />} />
         <Route path="/todo" element={<Todo />} />
