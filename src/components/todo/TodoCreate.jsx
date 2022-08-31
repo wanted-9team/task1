@@ -4,7 +4,7 @@ import { createTodo } from '../../utils/todo'
 import { CircleButton, InsertFormPositioner, InsertForm, Input } from '../../styles/Todo.style'
 import { getTodos } from '../../utils/todo'
 
-function TodoCreate({ todos }) {
+function TodoCreate({ setTodos }) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
 
@@ -12,7 +12,7 @@ function TodoCreate({ todos }) {
   const addTodo = todo => {
     createTodo(todo).then(res => {
       if (res.status === 201) {
-        getTodos()
+        setTodos(prevTodos => [...prevTodos, todo])
       }
     })
   }
