@@ -2,15 +2,23 @@ import React, { useState } from 'react'
 import * as S from '../../styles/Todo.style'
 import { MdDone, MdDelete, MdEdit } from 'react-icons/md'
 import { deleteTodo, getTodos, updateTodo } from '../../utils/todo'
+import { useEffect } from 'react'
+import { ToastBox } from '../../styles/Auth.style'
+import { useRef } from 'react'
 
 function TodoItem({ todoData, setTodos }) {
   const { todo, isCompleted } = todoData
   const [editMode, setEditMode] = useState(false)
-  const [newContents, setNewContents] = useState('')
+  const inputRef = useRef()
+  const [isError, setIsError] = useState('')
 
-  const onChangeNewContents = ({ target }) => {
-    setNewContents(target.value)
-  }
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        setIsError('')
+      }, 4000)
+    }
+  }, [isError])
 
   // api 요청 후 투두리스트 리렌더링을 위한 함수
   const refetchTodos = () => {
@@ -43,8 +51,16 @@ function TodoItem({ todoData, setTodos }) {
   // 투두리스트 내용 수정
   const onClickEditTodo = todo => {
     const id = todo.id
+    const editValue = inputRef.current.value
+    todo.todo = editValue
+
+    if (!editValue) {
+      setIsError('수정할 값을 입력해주세요.')
+      return
+    }
+
     updateTodo({
-      todo: newContents || todo.todo,
+      todo: editValue,
       isCompleted: todo.isCompleted,
       id: id,
     }).then(res => {
@@ -67,6 +83,7 @@ function TodoItem({ todoData, setTodos }) {
 
   return (
     <S.TodoItemBlock>
+      <ToastBox isError={isError}>{isError}</ToastBox>
       <S.CheckCircle
         isCompleted={isCompleted}
         onClick={() => {
@@ -99,7 +116,7 @@ function TodoItem({ todoData, setTodos }) {
           <S.Text isCompleted={isCompleted}>
             <S.EditInput
               defaultValue={todo}
-              onChange={onChangeNewContents}
+              ref={inputRef}
               placeholder="수정할 내용을 적어주세요!"
             />
           </S.Text>
