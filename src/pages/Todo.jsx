@@ -1,7 +1,12 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 
 const Todo = () => {
-  return <div>Todasdfasdfo</div>
+  return localStorage.getItem('accessToken') ? (
+    <div>Todasdfasdfo</div>
+  ) : (
+    <Navigate replace to={'/'} />
+  )
 }
 
 export default Todo
