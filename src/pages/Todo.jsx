@@ -38,7 +38,7 @@ const Todo = () => {
       </LogoutBtnBox>
       <TodoTemplateBlock>
         <TodoHead />
-        <TodoList todos={todos} />
+        <TodoList todos={todos} setTodos={setTodos} />
         <TodoCreate setTodos={setTodos} />
       </TodoTemplateBlock>
     </>
