@@ -1,18 +1,19 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffct, useMemo } from 'react'
 import { setToken } from '../../utils/token'
 import { signIn } from '../../utils/auth'
 import * as S from '../../styles/Auth.style'
 import { useNavigate } from 'react-router'
 
 function SignIn({ setIsLogin }) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [loginUserInfo, setLoginUserInfo] = useState({ email: '', password: '' })
 
-  const [emailMessage, setEmailMessage] = useState('')
-  const [passwordMessage, setPasswordMessage] = useState('')
+  const isEmailValid = useMemo(() => {
+    return loginUserInfo.email.includes('@')
+  }, [loginUserInfo.email])
 
-  const [isEmail, setIsEmail] = useState(false)
-  const [isPassword, setIsPassword] = useState(false)
+  const isPasswordValid = useMemo(() => {
+    return loginUserInfo.password.length >= 8
+  }, [loginUserInfo.password])
 
   const [isError, setIsError] = useState('')
 
@@ -28,8 +29,7 @@ function SignIn({ setIsLogin }) {
 
   const onSubmit = async e => {
     e.preventDefault()
-    const data = JSON.stringify({ email: email, password: password })
-
+    const data = JSON.stringify(loginUserInfo)
     signIn(data)
       .then(res => {
         if (res.status === 200) {
@@ -47,27 +47,13 @@ function SignIn({ setIsLogin }) {
       })
   }
 
-  const onChangeEmail = useCallback(e => {
-    setEmail(e.target.value)
-    if (!e.target.value.includes('@')) {
-      setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요ㅠ')
-      setIsEmail(false)
-    } else {
-      setEmailMessage('올바른 이메일 형식이에요')
-      setIsEmail(true)
-    }
-  }, [])
+const onChangeEmail = ({ target }) => {
+    setLoginUserInfo(prev => ({ ...prev, email: target.value }))
+  }
 
-  const onChangePassword = useCallback(e => {
-    setPassword(e.target.value)
-    if (e.target.value.length < 8) {
-      setIsPassword(false)
-      setPasswordMessage('비밀번호를 8자 이상 입력해주세요!')
-    } else {
-      setIsPassword(true)
-      setPasswordMessage('안전한 비밀번호에요')
-    }
-  }, [])
+  const onChangePassword = ({ target }) => {
+    setLoginUserInfo(prev => ({ ...prev, password: target.value }))
+  }
 
   return (
     <S.AuthContainer>
@@ -76,23 +62,25 @@ function SignIn({ setIsLogin }) {
       <S.AuthForm onSubmit={onSubmit}>
         <S.AuthFieldSet>
           <S.AuthLabel htmlFor="email">이메일</S.AuthLabel>
-          <S.AuthInput id="email" type="email" name="email" onChange={onChangeEmail} />
-          {email.length > 0 && (
-            <S.AuthMessage className={`message ${isEmail ? 'success' : 'fail'}`}>
-              {emailMessage}
+          <S.AuthInput type="email" name="email" onChange={onChangeEmail} />
+          {loginUserInfo.email.length > 0 && (
+            <S.AuthMessage isValid={isEmailValid}>
+              {isEmailValid
+                ? '올바른 이메일 형식이에요'
+                : '이메일 형식이 틀렸어요! 다시 확인해주세요ㅠ'}
             </S.AuthMessage>
           )}
         </S.AuthFieldSet>
         <S.AuthFieldSet>
           <S.AuthLabel htmlFor="password">비밀번호</S.AuthLabel>
           <S.AuthInput id="password" type="password" name="password" onChange={onChangePassword} />
-          {password.length > 0 && (
-            <S.AuthMessage className={`message ${isPassword ? 'success' : 'fail'}`}>
-              {passwordMessage}
+          {loginUserInfo.password.length > 0 && (
+            <S.AuthMessage isValid={isPasswordValid}>
+              {isPasswordValid ? '안전한 비밀번호에요' : '비밀번호를 8자 이상 입력해주세요!'}
             </S.AuthMessage>
           )}
         </S.AuthFieldSet>
-        <S.AuthButton type="submit" disabled={!isEmail || !isPassword}>
+        <S.AuthButton type="submit" disabled={!(isEmailValid && isPasswordValid)}>
           로그인
         </S.AuthButton>
       </S.AuthForm>
