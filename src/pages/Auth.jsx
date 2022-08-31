@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+import SignUp from '../components/signUp/SignUp'
+import SignIn from '../components/signIn/SignIn'
 
 const Auth = () => {
-  return <div>Auth</div>
+  const [isLogin, setIsLogin] = useState(true)
+  return isLogin ? <SignIn setIsLogin={setIsLogin} /> : <SignUp setIsLogin={setIsLogin} />
 }
-
 export default Auth
