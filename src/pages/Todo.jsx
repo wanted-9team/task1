@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import TodoCreate from '../components/todo/TodoCreate'
-// import TodoHead from '../components/todo/TodoHead'
+import TodoHead from '../components/todo/TodoHead'
 import TodoList from '../components/todo/TodoList'
-// import { removeToken } from '../utils/token'
+import { removeToken, getToken } from '../utils/token'
 import { getTodos } from '../utils/todo'
 import { LogoutBtnBox, LogoutBtn, TodoTemplateBlock } from '../styles/Todo.style'
 import { Navigate } from 'react-router-dom'
+
+localStorage.getItem('accessToken')
 
 const Todo = () => {
   const [todos, setTodos] = useState([])
@@ -27,7 +29,7 @@ const Todo = () => {
       <LogoutBtnBox>
         <LogoutBtn
           onClick={() => {
-            // removeToken()
+            removeToken()
             window.location.reload()
           }}
         >
@@ -35,9 +37,9 @@ const Todo = () => {
         </LogoutBtn>
       </LogoutBtnBox>
       <TodoTemplateBlock>
-        {/* <TodoHead /> */}
+        <TodoHead />
         <TodoList todos={todos} />
-        <TodoCreate todos={todos} />
+        <TodoCreate setTodos={setTodos} />
       </TodoTemplateBlock>
     </>
   ) : (

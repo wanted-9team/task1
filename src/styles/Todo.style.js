@@ -159,3 +159,19 @@ export const Input = styled.input`
   font-size: 18px;
   box-sizing: border-box;
 `
+
+export const TodoListBlock = styled.div`
+  flex: 1;
+  padding: 20px 32px;
+  padding-bottom: 48px;
+  overflow-y: auto;
+`
+
+export const TodoHeadBlock = styled.div`
+  h1 {
+    margin: 0;
+    font-size: 36px;
+  }
+  padding: 48px 32px 24px;
+  border-bottom: 1px solid #e9ecef;
+`
