@@ -1,10 +1,20 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { signUp } from '../../utils/auth'
 import * as S from '../../styles/Auth.style'
 
 function SignUp({ setIsLogin }) {
   const [userInfo, setUserInfo] = useState({ email: '', password: '' })
   const [passwordConfirm, setPasswordConfirm] = useState('')
+
+  const [isError, setIsError] = useState('')
+
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        setIsError('')
+      }, 4000)
+    }
+  }, [isError])
 
   const isEmailValid = useMemo(() => {
     return userInfo.email.includes('@')
@@ -30,7 +40,7 @@ function SignUp({ setIsLogin }) {
       })
       .catch(res => {
         if (res.response.status === 400) {
-          alert('이미 사용자가 있습니다. 다른 정보를 입력해주세요!')
+          setIsError('이미 사용자가 있습니다. 다른 정보를 입력해주세요')
         }
       })
   }
@@ -49,6 +59,7 @@ function SignUp({ setIsLogin }) {
 
   return (
     <S.AuthContainer>
+      <S.ToastBox isError={isError}>{isError}</S.ToastBox>
       <S.AuthTitle>회원가입</S.AuthTitle>
       <S.AuthForm onSubmit={onSubmit}>
         <S.AuthFieldSet>

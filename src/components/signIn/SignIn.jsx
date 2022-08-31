@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react'
+import React, { useCallback, useState, useEffct, useMemo } from 'react'
 import { setToken } from '../../utils/token'
 import { signIn } from '../../utils/auth'
 import * as S from '../../styles/Auth.style'
+import { useNavigate } from 'react-router'
 
 function SignIn({ setIsLogin }) {
   const [loginUserInfo, setLoginUserInfo] = useState({ email: '', password: '' })
@@ -14,29 +15,39 @@ function SignIn({ setIsLogin }) {
     return loginUserInfo.password.length >= 8
   }, [loginUserInfo.password])
 
+  const [isError, setIsError] = useState('')
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isError) {
+      setTimeout(() => {
+        setIsError('')
+      }, 4000)
+    }
+  }, [isError])
+
   const onSubmit = async e => {
     e.preventDefault()
     const data = JSON.stringify(loginUserInfo)
     signIn(data)
       .then(res => {
         if (res.status === 200) {
-          const {
-            data: { access_token: accessToken },
-          } = res
+          const accessToken = res.data.access_token
           setToken(JSON.stringify(accessToken))
-          window.location.reload()
+          navigate('/todo')
         }
       })
       .catch(res => {
         if (res.response.status === 404) {
-          alert('입력 정보가 틀렸습니다')
+          setIsError('해당 사용자가 존재하지 않습니다')
         } else if (res.response.status === 401) {
-          alert('비밀번호가 틀렸습니다.')
+          setIsError('비밀번호가 일치하지 않습니다')
         }
       })
   }
 
-  const onChangeEmail = ({ target }) => {
+const onChangeEmail = ({ target }) => {
     setLoginUserInfo(prev => ({ ...prev, email: target.value }))
   }
 
@@ -46,6 +57,7 @@ function SignIn({ setIsLogin }) {
 
   return (
     <S.AuthContainer>
+      <S.ToastBox isError={isError}>{isError}</S.ToastBox>
       <S.AuthTitle>로그인</S.AuthTitle>
       <S.AuthForm onSubmit={onSubmit}>
         <S.AuthFieldSet>
