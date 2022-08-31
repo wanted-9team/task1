@@ -28,6 +28,7 @@ function SignUp({ setIsLogin }) {
       .then(res => {
         if (res.status === 201) {
           navigate('/')
+          setIsLogin(true)
         }
       })
       .catch(res => {
