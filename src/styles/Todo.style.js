@@ -65,3 +65,97 @@ export const EditInput = styled.input`
   background: transparent;
   font-size: 18px;
 `
+
+export const TodoTemplateBlock = styled.div`
+  width: 512px;
+  height: 768px;
+  position: relative;
+  border-radius: 16px;
+  background-color: aliceblue;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
+  margin-top: 96px;
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+`
+
+export const LogoutBtnBox = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 5px;
+`
+
+export const LogoutBtn = styled.button`
+  background-color: blue;
+  color: #fff;
+  padding: 10px 5px;
+  border-radius: 5px;
+`
+
+export const CircleButton = styled.button`
+  background: #38d9a9;
+  &:hover {
+    background: #63e6be;
+  }
+  &:active {
+    background: #20c997;
+  }
+
+  z-index: 5;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, 50%);
+  color: white;
+  border-radius: 50%;
+
+  transition: 0.125s all ease-in;
+  ${props =>
+    props.open &&
+    css`
+      background: #ff6b6b;
+      &:hover {
+        background: #ff8787;
+      }
+      &:active {
+        background: #fa5252;
+      }
+      transform: translate(-50%, 50%) rotate(45deg);
+    `}
+`
+
+export const InsertFormPositioner = styled.div`
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+`
+
+export const InsertForm = styled.form`
+  background: #f8f9fa;
+  padding-left: 32px;
+  padding-top: 32px;
+  padding-right: 32px;
+  padding-bottom: 72px;
+
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-top: 1px solid #e9ecef;
+`
+
+export const Input = styled.input`
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  width: 100%;
+  outline: none;
+  font-size: 18px;
+  box-sizing: border-box;
+`
