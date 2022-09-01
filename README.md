@@ -51,14 +51,14 @@
 > 참고 파일: [[src/components/signIn/SignUp.jsx](https://github.com/wanted-9team/task1/blob/main/src/components/signUp/SignUp.jsx)] 
 <br> 회원가입시 필요한 email, password 를 userInfo 라는 state로 관리하도록 하고, passwordconfirm 은 따로 state로 관리하여
 추후 password와 일치하는지를 확인하여 유효성 검사를 실시하였습니다.<br>
-유효성 검사는 useMemo 훅을 이용하여 email, password 검사 및 password, passwordConfirm 이 일치하는지 판별하여 유효성검사를 판별하도록 하였습니다. 버튼 활성화 여부는 버튼 기본 props인 disabled를 활용합니다.
+유효성 검사는 useMemo 훅을 이용하여 email, password 검사 및 password, passwordConfirm 이 일치하는지 판별하여 유효성검사를 판별하도록 하였습니다. 검사 통과 여부에 따라 메시지를 다르게 띄우도록 구현했습니다. 버튼 활성화 여부는 버튼 기본 props인 disabled를 활용합니다.
 
 #### Assignment2
 
 - &#9745; 로그인 API를 호출하고, 올바른 응답을 받았을 때 `/todo` 경로로 이동해주세요
   - 로그인 API는 로그인이 성공했을 시 Response Body에 JWT를 포함해서 응답합니다.
   - &#9745; 응답받은 JWT는 로컬 스토리지에 저장해주세요
-> 참고 파일: [[src/styles/Auth.style.js](https://github.com/wanted-9team/task1/blob/main/src/styles/Auth.style.js)] 
+> 참고 파일: [[src/components/signIn/SignIn.jsx](https://github.com/wanted-9team/task1/blob/main/src/components/signIn/SignIn.jsx)] 
 <br> 로그인 및 회원가입 시 발생하는 오류(회원가입 시 동일한 이메일이 존재하는 경우, 로그인 시 존재하지 않는 이메일인 경우, 비밀번호가 일치하지 않는 경우)에 대해 401, 404 응답 코드를 설정하여 해당 오류에 대해서 toast를 이용해 메시지를 띄우도록 설정했습니다. 
 
 #### Assignment3
@@ -80,7 +80,7 @@
 - &#9745; 리스트 페이지에는 투두 리스트의 내용과 완료 여부가 표시되어야 합니다.
 - &#9745; 리스트 페이지에는 입력창과 추가 버튼이 있고, 추가 버튼을 누르면 입력창의 내용이 새로운 투두 리스트로 추가되도록 해주세요
 
-> 참고 파일: [[관련 PR](https://github.com/wanted-9team/task1/pull/22)] 
+> 참고 링크: [[관련 PR](https://github.com/wanted-9team/task1/pull/22)] 
 <br> 문제 상황: render 시 todo리스트에 보여줘야 하는 값에 setState로만 바꿔줘서 최신 데이터가 보여지지 않는 문제 발생
 <br> 해결 방법: render 시 서버에서 불러오는 /todo: GET 요청을 다시 실행하여 최신 값을 업데이트해줍니다.
 
@@ -93,7 +93,7 @@
 
 > 참고 링크: [[관련 PR](https://github.com/wanted-9team/task1/pull/20/files)] 
 <br> 문제 상황: 빈 값 수정 시 취소할 때 빈 값으로 렌더링 
-<br> 해결 방법: input에서 수정하려는 값이 빈 값이 아닐 때만 수정 가능하게 만들고, 빈 값일 경우 에러를 반환하도록 리팩토링하였습니다.
+<br> 해결 방법: input에서 수정하려는 값이 빈 값이 아닐 때만 수정 가능하게 만들고, 빈 값 상태에서 수정 취소할 때 수정 전의 값으로 반환하도록 리팩토링하였습니다.
 
 
 ## 레포지토리 구조
