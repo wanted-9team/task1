@@ -9,15 +9,6 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
   const [editMode, setEditMode] = useState(false)
   const inputRef = useRef()
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     setTimeout(() => {
-  //       setIsError('')
-  //     }, 4000)
-  //   }
-  // }, [isError])
-
-  // api 요청 후 투두리스트 리렌더링을 위한 함수
   const refetchTodos = () => {
     getTodos().then(res => {
       if (res.status === 200) {
@@ -26,7 +17,6 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
     })
   }
 
-  // 투두리스트 완료 상태 토글
   const onClickToggleTodo = todo => {
     todo.isCompleted = !todo.isCompleted
     updateTodo({
@@ -40,35 +30,32 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
     })
   }
 
-  // 수정 버튼 클릭시 수정모드 활성화
   const onClickEditMode = () => {
     setEditMode(prev => !prev)
   }
 
-  // 투두리스트 내용 수정
   const onClickEditTodo = todo => {
     const id = todo.id
     const editValue = inputRef.current.value
-    todo.todo = editValue
 
     if (!editValue) {
       setErrorMessage('수정할 값을 입력해주세요.')
       return
     }
 
+    todo.todo = editValue
     updateTodo({
       todo: editValue,
       isCompleted: todo.isCompleted,
       id: id,
     }).then(res => {
       if (res.status === 200) {
-        setEditMode(prev => !prev)
+        setEditMode(false)
         refetchTodos()
       }
     })
   }
 
-  // 투두리스트 삭제
   const onClickDeleteTodo = todo => {
     const id = todo.id
     deleteTodo(id).then(res => {
@@ -80,7 +67,6 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
 
   return (
     <S.TodoItemBlock>
-      {/* <ToastBox isError={isError}>{isError}</ToastBox> */}
       <S.CheckCircle
         isCompleted={isCompleted}
         onClick={() => {
@@ -90,7 +76,6 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
         {isCompleted && <MdDone />}
       </S.CheckCircle>
 
-      {/* 수정 모드가 아닐 때 */}
       {!editMode && (
         <>
           <S.Text isCompleted={isCompleted}>{todo}</S.Text>
@@ -107,7 +92,6 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
         </>
       )}
 
-      {/* 수정 모드일 때 */}
       {editMode && (
         <>
           <S.Text isCompleted={isCompleted}>
