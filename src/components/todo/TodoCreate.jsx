@@ -6,7 +6,7 @@ import useTodoApi from '../../utils/useTodoApi'
 function TodoCreate({ setTodos }) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
-  const { createTodo } = useTodoApi()
+  const { createTodo, getTodos } = useTodoApi()
 
   const refetchTodos = () => {
     getTodos().then(res => {
