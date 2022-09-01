@@ -8,11 +8,19 @@ function TodoCreate({ setTodos }) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
 
+  const refetchTodos = () => {
+    getTodos().then(res => {
+      if (res.status === 200) {
+        setTodos(res.data)
+      }
+    })
+  }
+
   // Add Todo
   const addTodo = todo => {
     createTodo(todo).then(res => {
       if (res.status === 201) {
-        setTodos(prevTodos => [...prevTodos, todo])
+        refetchTodos()
       }
     })
   }
