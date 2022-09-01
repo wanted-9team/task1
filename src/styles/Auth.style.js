@@ -86,22 +86,20 @@ export const AuthToggle = styled.span`
 `
 
 export const ToastBox = styled.p`
-  position: absolute;
-  /* top: -100%;
-  right: -50%; */
-  padding: 10px;
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  bottom: 100%;
+  right: 50%;
+  padding: 10px;
+  margin: 0 auto;
   width: 350px;
   height: 50px;
   border-radius: 8px;
   box-sizing: border-box;
   background-color: #ff3838;
   color: white;
-  transform: translate(100%, 50%);
-  transform: ${props =>
-    props.isError !== '' ? 'translate(50px, -130px)' : 'translate(50px, -500px)'};
+  transform: ${props => (props.errorMessage === '' ? 'translate(50%,0px)' : 'translate(50%,80px)')};
   transition: all 0.5s ease;
 `
