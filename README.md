@@ -125,25 +125,25 @@
 │   └─index.js
 │
 ├─components
-│	├─todo
+│   ├─todo
 │   │   ├─TodoCreate.jsx
 │   │   ├─TodoHead.jsx
 │   │   ├─TodoItem.jsx
 │   │   └─TodoList.jsx
 │   │
-│	├─signIn
+│   ├─signIn
 │	│   └─SignIn.jsx
 │   │
-│	└─signUp
+│   └─signUp
 │		└─SignUp.jsx
 │
 ├─pages
-│	├─Auth.tsx
+│   ├─Auth.tsx
 │   └─Todo.tsx
 │
 ├─styles
-│	├─Todo.style.ts
-│	├─Auth.style.ts
+│   ├─Todo.style.ts
+│   ├─Auth.style.ts
 │   └─global.ts
 │
 ├─utils
