@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as S from '../../styles/Todo.style'
 import { MdDone, MdDelete, MdEdit } from 'react-icons/md'
 import { useRef } from 'react'
 import useTodoApi from '../../utils/useTodoApi'
 
-function TodoItem({ todoData, setTodos, setErrorMessage }) {
-  const { todo, isCompleted } = todoData
-  const [editMode, setEditMode] = useState(false)
+function TodoItem({ todoData, setTodos, setErrorMessage, editModeId, setEditModeId }) {
+  const { todo, id, isCompleted } = todoData
   const inputRef = useRef()
   const { getTodos, updateTodo, deleteTodo } = useTodoApi()
 
@@ -31,8 +30,8 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
     })
   }
 
-  const onClickEditMode = () => {
-    setEditMode(prev => !prev)
+  const onClickEditMode = id => {
+    setEditModeId(id)
   }
 
   const onClickEditTodo = todo => {
@@ -51,7 +50,7 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
       id: id,
     }).then(res => {
       if (res.status === 200) {
-        setEditMode(false)
+        setEditModeId('')
         refetchTodos()
       }
     })
@@ -76,24 +75,7 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
       >
         {isCompleted && <MdDone />}
       </S.CheckCircle>
-
-      {!editMode && (
-        <>
-          <S.Text isCompleted={isCompleted}>{todo}</S.Text>
-          <S.EditBtnBox onClick={onClickEditMode}>
-            <MdEdit />
-          </S.EditBtnBox>
-          <S.Remove
-            onClick={() => {
-              onClickDeleteTodo(todoData)
-            }}
-          >
-            <MdDelete />
-          </S.Remove>
-        </>
-      )}
-
-      {editMode && (
+      {editModeId === id ? (
         <>
           <S.Text isCompleted={isCompleted}>
             <S.EditInput
@@ -109,7 +91,21 @@ function TodoItem({ todoData, setTodos, setErrorMessage }) {
           >
             저장
           </S.EditBtnBox>
-          <S.Remove onClick={onClickEditMode}>취소</S.Remove>
+          <S.Remove onClick={() => onClickEditMode('')}>취소</S.Remove>
+        </>
+      ) : (
+        <>
+          <S.Text isCompleted={isCompleted}>{todo}</S.Text>
+          <S.EditBtnBox onClick={() => onClickEditMode(id)}>
+            <MdEdit />
+          </S.EditBtnBox>
+          <S.Remove
+            onClick={() => {
+              onClickDeleteTodo(todoData)
+            }}
+          >
+            <MdDelete />
+          </S.Remove>
         </>
       )}
     </S.TodoItemBlock>
