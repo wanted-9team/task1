@@ -138,20 +138,18 @@
 │		└─SignUp.jsx
 │
 ├─pages
-│   ├─Auth.tsx
-│   └─Todo.tsx
+│   ├─Auth.jsx
+│   └─Todo.jsx
 │
 ├─styles
-│   ├─Todo.style.ts
-│   ├─Auth.style.ts
-│   └─global.ts
+│   ├─Todo.style.js
+│   ├─Auth.style.js
+│   └─global.js
 │
 ├─utils
-│   ├─auth.ts
-│   ├─todo.ts
-│   └─token.ts
-└─types
-	├─auth.ts
-	└─todo.ts
+    ├─auth.js
+    ├─todo.js
+    └─token.js
+
 ```
 </details>
