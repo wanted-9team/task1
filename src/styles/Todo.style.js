@@ -83,7 +83,7 @@ export const TodoTemplateBlock = styled.div`
 export const LogoutBtnBox = styled.div`
   position: absolute;
   top: 10px;
-  right: 5px;
+  right: 5%;
 `
 
 export const LogoutBtn = styled.button`

@@ -6,11 +6,13 @@ import { removeToken, getToken } from '../utils/token'
 import { getTodos } from '../utils/todo'
 import { LogoutBtnBox, LogoutBtn, TodoTemplateBlock } from '../styles/Todo.style'
 import { Navigate } from 'react-router-dom'
+import { ToastBox } from '../styles/Auth.style'
 
 localStorage.getItem('accessToken')
 
 const Todo = () => {
   const [todos, setTodos] = useState([])
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     try {
@@ -24,8 +26,16 @@ const Todo = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const toastTimer = setTimeout(() => {
+      setErrorMessage('')
+    }, 4000)
+    return () => clearTimeout(toastTimer)
+  }, [errorMessage])
+
   return localStorage.getItem('accessToken') ? (
     <>
+      <ToastBox errorMessage={errorMessage}>{errorMessage}</ToastBox>
       <LogoutBtnBox>
         <LogoutBtn
           onClick={() => {
@@ -38,7 +48,7 @@ const Todo = () => {
       </LogoutBtnBox>
       <TodoTemplateBlock>
         <TodoHead />
-        <TodoList todos={todos} setTodos={setTodos} />
+        <TodoList todos={todos} setTodos={setTodos} setErrorMessage={setErrorMessage} />
         <TodoCreate setTodos={setTodos} />
       </TodoTemplateBlock>
     </>
