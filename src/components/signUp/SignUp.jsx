@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { signUp } from '../../utils/auth'
+import useAuthApi from '../../utils/useAuthApi'
 import * as S from '../../styles/Auth.style'
 
 function SignUp({ setIsLogin }) {
@@ -7,6 +7,8 @@ function SignUp({ setIsLogin }) {
   const [passwordConfirm, setPasswordConfirm] = useState('')
 
   const [errorMessage, setErrorMessage] = useState('')
+
+  const { signUp } = useAuthApi()
 
   useEffect(() => {
     const toastTimer = setTimeout(() => {

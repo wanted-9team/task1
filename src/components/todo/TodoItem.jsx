@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import * as S from '../../styles/Todo.style'
 import { MdDone, MdDelete, MdEdit } from 'react-icons/md'
-import { deleteTodo, getTodos, updateTodo } from '../../utils/todo'
 import { useRef } from 'react'
+import useTodoApi from '../../utils/useTodoApi'
 
 function TodoItem({ todoData, setTodos, setErrorMessage }) {
   const { todo, isCompleted } = todoData
   const [editMode, setEditMode] = useState(false)
   const inputRef = useRef()
+  const { getTodos, updateTodo, deleteTodo } = useTodoApi()
 
   const refetchTodos = () => {
     getTodos().then(res => {
