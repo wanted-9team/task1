@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { setToken } from '../../utils/token'
 import { signIn } from '../../utils/auth'
 import * as S from '../../styles/Auth.style'
