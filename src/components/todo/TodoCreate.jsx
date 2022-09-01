@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { MdAdd } from 'react-icons/md'
-import { createTodo } from '../../utils/todo'
 import { CircleButton, InsertFormPositioner, InsertForm, Input } from '../../styles/Todo.style'
-import { getTodos } from '../../utils/todo'
+import useTodoApi from '../../utils/useTodoApi'
 
 function TodoCreate({ setTodos }) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
+  const { createTodo } = useTodoApi()
 
   const refetchTodos = () => {
     getTodos().then(res => {

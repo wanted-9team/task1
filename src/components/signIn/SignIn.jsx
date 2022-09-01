@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { setToken } from '../../utils/token'
-import { signIn } from '../../utils/auth'
+import useAuthApi from '../../utils/useAuthApi'
 import * as S from '../../styles/Auth.style'
 import { useNavigate } from 'react-router'
 
 function SignIn({ setIsLogin }) {
   const [loginUserInfo, setLoginUserInfo] = useState({ email: '', password: '' })
+
+  const { signIn } = useAuthApi()
 
   const isEmailValid = useMemo(() => {
     return loginUserInfo.email.includes('@')

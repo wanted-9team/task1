@@ -3,7 +3,7 @@ import TodoCreate from '../components/todo/TodoCreate'
 import TodoHead from '../components/todo/TodoHead'
 import TodoList from '../components/todo/TodoList'
 import { removeToken, getToken } from '../utils/token'
-import { getTodos } from '../utils/todo'
+import useTodoApi from '../utils/useTodoApi'
 import { LogoutBtnBox, LogoutBtn, TodoTemplateBlock } from '../styles/Todo.style'
 import { Navigate } from 'react-router-dom'
 import { ToastBox } from '../styles/Auth.style'
@@ -13,6 +13,8 @@ localStorage.getItem('accessToken')
 const Todo = () => {
   const [todos, setTodos] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
+
+  const { getTodos } = useTodoApi()
 
   useEffect(() => {
     try {
