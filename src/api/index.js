@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getToken } from '../utils/token.js'
 
-const baseURL = 'https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com'
+const baseURL = `https://n38lcff1wk.execute-api.ap-northeast-2.amazonaws.com`
 
 let token
 if (getToken()) {
