@@ -15,15 +15,21 @@
 - ID: happy@naver.com
 - PW: asdf1234
 
+## 실행 방법
+```bash
+git clone https://github.com/wanted-9team/task1.git
+npm install
+npm start
+```
+
 ## 9팀 소개
 
 |<img src="https://avatars.githubusercontent.com/u/92010078?v=4"/>|<img src="https://avatars.githubusercontent.com/u/92101831?v=4"/>|<img src="https://avatars.githubusercontent.com/u/69101321?v=4"/>|<img src="https://avatars.githubusercontent.com/u/59791809?v=4">|<img src="https://avatars.githubusercontent.com/u/85508157?v=4"/>|<img src="https://avatars.githubusercontent.com/u/71773680?v=4">|<img src="https://avatars.githubusercontent.com/u/97271725?v=4">|
 |--|--|--|--|--|--|--|
 |<a href="https://github.com/many-yun">[팀장] 김다윤</a>|<a href="https://github.com/blcklamb">김채정</a>|<a href="https://github.com/jaehyeon74">박재현</a>|<a href="https://github.com/hlezg08">성혜린</a>|<a href="https://github.com/sacultang">오영재</a>|<a href="https://github.com/estherjj">전에스더</a>|<a href="https://github.com/jungdeokwoo">정덕우</a>|
 
-## 과제 달성 사항 및 해결 방법
+## Best Practice 도출 과정
 
-### Best Practice 도출 과정
 0. code, commit convention 및 팀 규칙을 정합니다.
 
 1. 각자의 코드에 대한 설명을 공유합니다.
@@ -34,13 +40,15 @@
 
 3. 각 Assignment 별로 분담하여 작업하면서 최선의 구현이라 생각되는 것을 채택하여 코드를 보완합니다.
 
+## 과제 달성 사항 및 해결 방법
+
 ### :: 1. 로그인 / 회원가입
 
 - &#9745; `/` 경로에 로그인 / 회원가입 기능을 개발해주세요
   - &#9745; 페이지 안에 이메일 입력창, 비밀번호 입력창, 제출 버튼이 포함된 형태로 구성해주세요
   - &#9745; 로그인, 회원가입을 별도의 경로로 분리해도 무방합니다.
 
-#### Assignment1
+#### **Assignment1**
 
 - &#9745; 이메일과 비밀번호의 유효성 검사기능을 구현해주세요
   - &#9745; 이메일 조건: `@` 포함
@@ -53,7 +61,7 @@
 추후 password와 일치하는지를 확인하여 유효성 검사를 실시하였습니다.<br>
 유효성 검사는 useMemo 훅을 이용하여 email, password 검사 및 password, passwordConfirm 이 일치하는지 판별하여 유효성검사를 판별하도록 하였습니다. 검사 통과 여부에 따라 메시지를 다르게 띄우도록 구현했습니다. 버튼 활성화 여부는 버튼 기본 props인 disabled를 활용합니다.
 
-#### Assignment2
+#### **Assignment2**
 
 - &#9745; 로그인 API를 호출하고, 올바른 응답을 받았을 때 `/todo` 경로로 이동해주세요
   - 로그인 API는 로그인이 성공했을 시 Response Body에 JWT를 포함해서 응답합니다.
@@ -61,7 +69,7 @@
 > 참고 파일: [[src/components/signIn/SignIn.jsx](https://github.com/wanted-9team/task1/blob/main/src/components/signIn/SignIn.jsx)] 
 <br> 로그인 및 회원가입 시 발생하는 오류(회원가입 시 동일한 이메일이 존재하는 경우, 로그인 시 존재하지 않는 이메일인 경우, 비밀번호가 일치하지 않는 경우)에 대해 401, 404 응답 코드를 설정하여 해당 오류에 대해서 toast를 이용해 메시지를 띄우도록 설정했습니다. 
 
-#### Assignment3
+#### **Assignment3**
 
 - &#9745; 로그인 여부에 따른 리다이렉트 처리를 구현해주세요
   - &#9745; 로컬 스토리지에 토큰이 있는 상태로 `/` 페이지에 접속한다면 `/todo` 경로로 리다이렉트 시켜주세요
@@ -74,7 +82,7 @@
 
 ### :: 2. 투두 리스트
 
-#### Assignment4
+#### **Assignment4**
 
 - &#9745; `/todo`경로에 접속하면 투두 리스트의 목록을 볼 수 있도록 해주세요
 - &#9745; 리스트 페이지에는 투두 리스트의 내용과 완료 여부가 표시되어야 합니다.
@@ -84,7 +92,7 @@
 <br> 문제 상황: render 시 todo리스트에 보여줘야 하는 값에 setState로만 바꿔줘서 최신 데이터가 보여지지 않는 문제 발생
 <br> 해결 방법: render 시 서버에서 불러오는 /todo: GET 요청을 다시 실행하여 최신 값을 업데이트해줍니다.
 
-#### Assignment5
+#### **Assignment5**
 
 - &#9745; 투두 리스트의 수정, 삭제 기능을 구현해주세요
   - &#9745; 투두 리스트의 개별 아이템 우측에 수정버튼이 존재하고 해당 버튼을 누르면 수정모드가 활성화되고 투두 리스트의 내용을 수정할 수 있도록 해주세요
